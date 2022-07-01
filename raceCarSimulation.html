@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#track {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  border: 1px solid black;
+}
+#car {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  background-color: red;
+}
+</style>
+</head>
+<body>
+<div id="track"></div>
+<div id="car"></div>
+<script>
+var car = document.getElementById("car");
+var track = document.getElementById("track");
+var lap = 0;
+var angle = 0;
+var radius = 100;
+function animate() {
+    angle += 0.1;
+    var x = Math.cos(angle) * radius + track.offsetWidth/2 - car.offsetWidth/2;
+    var y = Math.sin(angle) * radius + track.offsetHeight/2 - car.offsetHeight/2;
+    car.style.left = x + "px";
+    car.style.top = y + "px";
+
+    // check if the car has completed a lap around the track
+    if (angle > 2 * Math.PI) {
+        angle = 0;
+        lap++;
+
+        // display the number of laps completed
+        document.getElementById("laps").innerHTML = "Laps completed: " + lap;
+
+    }
+
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+ <p id="laps">Laps completed: 0</p> 
+
+ </body>
+</html>
